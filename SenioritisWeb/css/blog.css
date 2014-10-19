@@ -40,7 +40,7 @@ textarea {
 	margin: auto;
 	padding:1px;
 	height:200px;
-	background-image: url('Senioritis Winter.png');
+	background-image: url('http://saratang.github.io/SenioritisWeb/img/Senioritis Winter.png');
 }
 
 .logo {
@@ -68,7 +68,7 @@ textarea {
 	background-color:#708090;
 	margin:auto;
 	padding:10px;
-	background-image: url('Snowflake Seamless.png');
+	background-image: url('http://saratang.github.io/SenioritisWeb/img/Snowflake Seamless.png');
 	background-repeat:repeat-y;
 	height:inherit;
 }
