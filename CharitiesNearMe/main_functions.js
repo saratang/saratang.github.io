@@ -1,24 +1,26 @@
-
-// function initialize() {
-//     var mapOptions = {
-//       center: { lat: -34.397, lng: 150.644},
-//       zoom: 8
-//     };
-//     var map = new google.maps.Map(document.getElementById('map-canvas'),
-//         mapOptions);
-//   }
-
-// function loadScript() {
-//   var script = document.createElement('script');
-//   script.type = 'text/javascript';
-//   script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&' +
-//       'callback=initialize';
-//   document.body.appendChild(script);
-// }
-$('form').submit(function(event) {
-  alert('clicked!');
-  event.preventDefault();
+$(document).ready(function() {
+  $('form').submit(function(event) {
+    loadScript();
+  });
 });
+
+function initialize() {
+    var mapOptions = {
+      center: { lat: -34.397, lng: 150.644},
+      zoom: 8
+    };
+    var map = new google.maps.Map(document.getElementById('map-canvas'),
+        mapOptions);
+  }
+
+function loadScript() {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&' +
+      'callback=initialize';
+  document.body.appendChild(script);
+}
+
 
 // // Get current location
 // // Note: This example requires that you consent to location sharing when
