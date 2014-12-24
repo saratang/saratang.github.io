@@ -15,12 +15,7 @@
 //       'callback=initialize';
 //   document.body.appendChild(script);
 // }
-$('#target').submit(function(event) {
-  alert('clicked!');
-  event.preventDefault();
-});
-
-$('#specify').submit(function(event) {
+$('form').submit(function(event) {
   alert('clicked!');
   event.preventDefault();
 });
