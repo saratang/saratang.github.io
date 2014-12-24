@@ -6,8 +6,18 @@ function initialize() {
     var map = new google.maps.Map(document.getElementById('map-canvas'),
         mapOptions);
   }
-  google.maps.event.addDomListener(window, 'load', initialize);
-  
+
+function loadScript() {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&' +
+      'callback=initialize';
+  document.body.appendChild(script);
+}
+
+$("#submit").onClick(function() {
+  loadScript();
+});
 // // Get current location
 // // Note: This example requires that you consent to location sharing when
 // // prompted by your browser. If you see a blank space instead of the map, this
