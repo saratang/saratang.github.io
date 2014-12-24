@@ -1,23 +1,26 @@
-function initialize() {
-    var mapOptions = {
-      center: { lat: -34.397, lng: 150.644},
-      zoom: 8
-    };
-    var map = new google.maps.Map(document.getElementById('map-canvas'),
-        mapOptions);
-  }
 
-function loadScript() {
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&' +
-      'callback=initialize';
-  document.body.appendChild(script);
-}
+// function initialize() {
+//     var mapOptions = {
+//       center: { lat: -34.397, lng: 150.644},
+//       zoom: 8
+//     };
+//     var map = new google.maps.Map(document.getElementById('map-canvas'),
+//         mapOptions);
+//   }
 
-$("#submit").onClick(function() {
-  loadScript();
+// function loadScript() {
+//   var script = document.createElement('script');
+//   script.type = 'text/javascript';
+//   script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&' +
+//       'callback=initialize';
+//   document.body.appendChild(script);
+// }
+
+$('#specify').submit(function(event) {
+  alert('clicked!');
+  event.preventDefault();
 });
+
 // // Get current location
 // // Note: This example requires that you consent to location sharing when
 // // prompted by your browser. If you see a blank space instead of the map, this
