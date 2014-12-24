@@ -4,21 +4,25 @@
     <title>Charities Near Me | Find Events</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <style>
-      html, body, #map-canvas {
-        height: 100%;
-        margin: 0px;
-        padding: 0px
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
     <script src="main_functions.js"></script>
   </head>
+
   <body>
     <div id="event_attributes">
-      <form>
-        <div>Name of organization</div>
-        <div>Type of organization</div>
+      <h1>Specify Event</h1>
+      <form name="specify" method="GET">
+        <div><h2>Name of organization</h2></div>
+            <input type="checkbox" name="name" value="Red Cross">Red Cross<br>
+            <input type="checkbox" name="name" value="WWF">World Wildlife Foundation<br>
+            <input type="checkbox" name="name" value="Greenpeace">Greenpeace<br>
+        <div><h2>Type of organization</h2></div>
+            <input type="checkbox" name="type" value="Environmental">Environmental<br>
+            <input type="checkbox" name="type" value="Children">Children/Education<br>
+            <input type="checkbox" name="type" value="Hunger">Hunger<br>
+
+        <input type="submit" name="Submit" value="Submit"/>
       </form>
     </div>
     <div id="map-canvas"></div>
