@@ -96,7 +96,7 @@ function thirty_days_later() {
 function format(date) {
     var result = date.toISOString();
     result = strip_milli(result);
-    result = result.replace(/:/, "%3A");
+    result = result.replace(/:/g, "%3A");
     result = result + "Z";
     return result;
 }
