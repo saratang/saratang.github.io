@@ -100,7 +100,9 @@ $(function() {
             .done(function(data) {
                 //if data is non-empty, return an array containing data['events']['name']['text'], data['events']['description']['text'], data['events']['url'], data['events']['start']['local'], host name, event address, and number of people attending, latitude and longitude -.-"
                 if (data && !data.error) {
-                    $('#target').html(data.events);
+                    $.each(data.events, function() {
+                        $('#target').prepend(data.events);
+                    }
                 } else {
                     //if data is empty, display some message
                     $('#target').html('Error...');
