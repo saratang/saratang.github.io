@@ -5,7 +5,8 @@ function ajax_request(token, start, end, location) {
         type: "GET",
         dataType: "json",
         cache: "false",
-        crossDomain: true
+        crossDomain: true,
+        contentType: 'application/json'
     });
 }
 
