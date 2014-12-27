@@ -81,10 +81,23 @@ function ajax_request(token, start, end, location) {
     });
 }
 
+function strip_milli(string) {
+    var i = string.indexOf(".");
+    string = string.substring(:i);
+    return string;
+}
+
 function thirty_days_later() {
-    var thirty_days_later = new Date();
-    thirty_days_later.setDate(thirty_days_later.getDate() + 30);
-    var result = thirty_days_later.toISOString();
+    var future = new Date();
+    future.setDate(future.getDate() + 30);
+    return future;
+}
+
+function format(date) {
+    var result = date.toISOString();
+    result = strip_milli(result);
+    result = result.replace(/:/, "%3A");
+    result = result + "Z";
     return result;
 }
 
@@ -92,10 +105,10 @@ $(function() {
     $('#button').click(function() {
         var location = 'toronto';
         var token = "ZBEVEGMUTNYPFPOKE4B7";
-        var today = new Date().toISOString();
-        var today = today.replace(":", "%3A");
-        var end = thirty_days_later();
-        var end = end.replace(":", "%3A");
+        var today = new Date();
+        today = format(today);
+        var end = format(thirty_days_later());
+
         //var params = {'hostname': $hostname, 'type': $type};
         var res = ajax_request(token, today, end, location);
         res
