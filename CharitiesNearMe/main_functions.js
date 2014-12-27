@@ -89,7 +89,7 @@ function thirty_days_later() {
 }
 
 $(function() {
-    $('#refine').submit(function() {
+    $('#button').click(function() {
         var location = 'toronto';
         var token = "ZBEVEGMUTNYPFPOKE4B7";
         var today = new Date().toISOString();
@@ -101,11 +101,12 @@ $(function() {
                 //if data is non-empty, return an array containing data['events']['name']['text'], data['events']['description']['text'], data['events']['url'], data['events']['start']['local'], host name, event address, and number of people attending, latitude and longitude -.-"
                 if (data && !data.error) {
                     $.each(data.events, function() {
-                        $('#target').prepend(data.events);
+                        $(this).prependTo('#target');
                     });
+                    console.log("done!");
                 } else {
                     //if data is empty, display some message
-                    $('#target').html('Error...');
+                    console.log("error:" + data)
                 }
             });
     });
