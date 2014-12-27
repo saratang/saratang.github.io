@@ -93,7 +93,9 @@ $(function() {
         var location = 'toronto';
         var token = "ZBEVEGMUTNYPFPOKE4B7";
         var today = new Date().toISOString();
+        var today = today.replace(":", "%3A");
         var end = thirty_days_later();
+        var end = end.replace(":", "%3A");
         //var params = {'hostname': $hostname, 'type': $type};
         var res = ajax_request(token, today, end, location);
         res
