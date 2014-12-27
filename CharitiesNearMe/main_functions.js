@@ -83,7 +83,7 @@ function ajax_request(token, start, end, location) {
 
 function strip_milli(string) {
     var i = string.indexOf(".");
-    string = string.substring(:i);
+    string = string.substring(0:i);
     return string;
 }
 
