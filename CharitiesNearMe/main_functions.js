@@ -84,27 +84,27 @@ function ajax_request(token, start, end, location) {
 function thirty_days_later() {
     var thirty_days_later = new Date();
     thirty_days_later.setDate(thirty_days_later.getDate() + 30);
-    thirty_days_later.toUTCString().slice(0, 10);
-    return thirty_days_later;
+    var result = thirty_days_later.toISOString();
+    return result;
 }
 
 $(function() {
     $('#refine').submit(function() {
         var location = 'toronto';
         var token = "ZBEVEGMUTNYPFPOKE4B7";
-        var today = new Date().toUTCString().slice(0, 10);
-        var thirty_days_later = thirty_days_later();
-        var params = {'hostname': $hostname, 'type': $type};
-        var res = ajax_request(token, today, thirty_days_later, location);
+        var today = new Date().toISOString();
+        var end = thirty_days_later();
+        //var params = {'hostname': $hostname, 'type': $type};
+        var res = ajax_request(token, today, end, location);
         res
             .done(function(data) {
+                //if data is non-empty, return an array containing data['events']['name']['text'], data['events']['description']['text'], data['events']['url'], data['events']['start']['local'], host name, event address, and number of people attending, latitude and longitude -.-"
                 if (data && !data.error) {
                     $('#target').html(data.events);
                 } else {
+                    //if data is empty, display some message
                     $('#target').html('Error...');
                 }
-          //if data is non-empty, return an array containing data['events']['name']['text'], data['events']['description']['text'], data['events']['url'], data['events']['start']['local'], host name, event address, and number of people attending
-          //if data is empty, display some message
             });
     });
 });
