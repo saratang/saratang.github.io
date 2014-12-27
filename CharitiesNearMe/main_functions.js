@@ -102,7 +102,7 @@ $(function() {
                 if (data && !data.error) {
                     $.each(data.events, function() {
                         $('#target').prepend(data.events);
-                    }
+                    });
                 } else {
                     //if data is empty, display some message
                     $('#target').html('Error...');
