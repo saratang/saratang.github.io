@@ -77,7 +77,9 @@ function ajax_request(token, start, end, location) {
         url: "https://www.eventbriteapi.com/v3/events/search?token="+ token + "&categories=111&start_date.range_start=" + start + "&start_date.range_end=" + end + "&venue.city=" + location,
         type: "GET",
         dataType: "jsonp",
-        cache: "false"
+        cache: "false",
+        jsonp: false,
+        jsonpCallback: "callbackName"
     });
 }
 
