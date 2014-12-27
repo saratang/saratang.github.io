@@ -69,7 +69,7 @@ function loadScript() {
     document.body.appendChild(script);
 }
 
-window.onload = loadScript;
+//window.onload = loadScript;
 
 //Find all places within a limit
 function ajax_request(token, start, end, location) {
