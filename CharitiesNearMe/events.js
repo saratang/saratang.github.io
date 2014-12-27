@@ -3,10 +3,9 @@ function ajax_request(token, start, end, location) {
     return $.ajax({
         url: "https://www.eventbriteapi.com/v3/events/search?token="+ token + "&categories=111&start_date.range_start=" + start + "&start_date.range_end=" + end + "&venue.city=" + location,
         type: "GET",
-        dataType: "jsonp",
+        dataType: "json",
         cache: "false",
-        jsonp: false,
-        jsonpCallback: "callbackName"
+        crossDomain: true
     });
 }
 
@@ -25,8 +24,8 @@ function thirty_days_later() {
 function format(date) {
     var result = date.toISOString();
     result = strip_milli(result);
-    result = result.replace(/:/g, "%3A");
     result = result + "Z";
+    result = encodeURI(result);
     return result;
 }
 
