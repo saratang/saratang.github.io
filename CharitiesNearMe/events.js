@@ -1,11 +1,20 @@
 //Find all places within a limit
-function ajax_request(token, start, end, location) {
+function ajax_request(tokenv, startv, endv, locationv) {
+    var search = {
+        token: tokenv,
+        categories: 111,
+        start_date.range_start: startv,
+        start_date.range_end: endv,
+        venue.city: locationv
+    }
+
     return $.ajax({
-        url: "https://www.eventbriteapi.com/v3/events/search?token="+ token + "&categories=111&start_date.range_start=" + start + "&start_date.range_end=" + end + "&venue.city=" + location,
+        url: "https://www.eventbriteapi.com/v3/events/search/?",
         type: "GET",
         dataType: "json",
         cache: "false",
         contentType: 'application/json'
+        data: $.params(search)
     });
 }
 
