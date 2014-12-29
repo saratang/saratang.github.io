@@ -15,7 +15,7 @@ function ajax_request(tokenv, startv, endv, locationv, formatsv) {
     var search = {
         token: tokenv,
         categories: 111,
-        formats: get_formats();
+        formats: get_formats()
     }
 
     return $.ajax({
