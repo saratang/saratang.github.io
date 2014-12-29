@@ -65,15 +65,16 @@ $(function() {
         res
             .done(function(data) {
                 //if data is non-empty, return an array containing data['events']['name']['text'], data['events']['description']['text'], data['events']['url'], data['events']['start']['local'], host name, event address, and number of people attending, latitude and longitude -.-"
-                if (data && !data.error) {
-                    $.each(data.events, function() {
+                if (data) {
+                    info = json.parse(data);
+                    $.each(info['events'], function() {
                         var html = eventHTML(this);
                         $(html).prependTo('#target');
                     });
                     console.log("done!");
                 } else {
                     //if data is empty, display some message
-                    console.log("error:" + data);
+                    console.log("error:" + info);
                 }
             });
     });
