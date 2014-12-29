@@ -15,7 +15,7 @@ function ajax_request(tokenv, startv, endv, locationv) {
     alert($.param(search));
 
     return $.ajax({
-        url: "https://www.eventbriteapi.com/v3/events/search/?token=" + tokenv + "&start_date.range_start=" + startv + "&start_date.range_end=" + endv + "&venue.city=" + locationv,
+        url: "https://www.eventbriteapi.com/v3/events/search/?token=" + tokenv + "&categories=111&start_date.range_start=" + startv + "&start_date.range_end=" + endv + "&venue.city=" + locationv,
         type: "GET",
         dataType: "json",
         cache: "false",
@@ -67,6 +67,7 @@ $(function() {
                 //if data is non-empty, return an array containing data['events']['name']['text'], data['events']['description']['text'], data['events']['url'], data['events']['start']['local'], host name, event address, and number of people attending, latitude and longitude -.-"
                 if (data) {
                     $.each(data['events'], function() {
+                        //turn info into marker on map
                         console.log('Name: ' + this['name']['text']);
                         console.log('Host: ' + this['organizer']['name']);
                         console.log('Venue: ' + this['venue']['address']['address_1']);
