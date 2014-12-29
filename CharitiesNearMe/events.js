@@ -22,7 +22,7 @@ function ajax_request(tokenv, startv, endv, locationv) {
         contentType: 'application/json', 
         beforeSend: function(xhr) {
             xhr.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        }
+        },
         data: $.param(search)
     });
 }
