@@ -15,15 +15,15 @@ function ajax_request(tokenv, startv, endv, locationv) {
     alert($.param(search));
 
     return $.ajax({
-        url: "https://www.eventbriteapi.com/v3/events/search/?",
+        url: "https://www.eventbriteapi.com/v3/events/search/?token=" + tokenv + "&start_date.range_start=" + startv + "&start_date.range_end=" + endv + "&venue.city=" locationv,
         type: "GET",
         dataType: "json",
         cache: "false",
-        contentType: 'application/json', 
-        beforeSend: function(xhr) {
-            xhr.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        },
-        data: $.param(search)
+        // contentType: 'application/json', 
+        // beforeSend: function(xhr) {
+        //     xhr.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        // },
+        // data: $.param(search)
     });
 }
 
@@ -47,6 +47,11 @@ function format(date) {
     return result;
 }
 
+function eventHTML(event) {
+    var res = '<div>' + event.name + '</div>';
+    return res;
+}
+
 $(function() {
     $('#button').click(function() {
         var location = 'toronto';
@@ -62,7 +67,8 @@ $(function() {
                 //if data is non-empty, return an array containing data['events']['name']['text'], data['events']['description']['text'], data['events']['url'], data['events']['start']['local'], host name, event address, and number of people attending, latitude and longitude -.-"
                 if (data && !data.error) {
                     $.each(data.events, function() {
-                        $(this).prependTo('#target');
+                        var html = eventHTML(this);
+                        $(html).prependTo('#target');
                     });
                     console.log("done!");
                 } else {
