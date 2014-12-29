@@ -12,6 +12,8 @@ function ajax_request(tokenv, startv, endv, locationv) {
         }
     }
 
+    alert($.param(search));
+
     return $.ajax({
         url: "https://www.eventbriteapi.com/v3/events/search/?",
         type: "GET",
