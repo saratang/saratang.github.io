@@ -18,7 +18,10 @@ function ajax_request(tokenv, startv, endv, locationv) {
         dataType: "json",
         cache: "false",
         contentType: 'application/json', 
-        data: $.params(search)
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        }
+        data: $.param(search)
     });
 }
 
