@@ -48,7 +48,7 @@ function format(date) {
 }
 
 function eventHTML(event) {
-    var res = '<div>' + event.name + '</div>';
+    var res = '<div>' + event['name']['text'] + '</div>';
     return res;
 }
 
@@ -66,10 +66,9 @@ $(function() {
             .done(function(data) {
                 //if data is non-empty, return an array containing data['events']['name']['text'], data['events']['description']['text'], data['events']['url'], data['events']['start']['local'], host name, event address, and number of people attending, latitude and longitude -.-"
                 if (data) {
-                    info = json.parse(data);
+                    var info = json.parse(data);
                     $.each(info['events'], function() {
-                        var html = eventHTML(this);
-                        $(html).prependTo('#target');
+                        console.log(this['name']['text']);
                     });
                     console.log("done!");
                 } else {
