@@ -1,37 +1,24 @@
 //Find all places within a limit
-function ajax_request(tokenv, startv, endv, locationv) {
+function get_formats() {
+    formats = [];
+    //for each checked box, add its value to formats
+    $('#type-container :checkbox').each(function() {
+        if (this.checked) {
+            formats.push(this.val());
+        }
+    });
+    alert(formats.join());
+    //return formats.join();
+}
+function ajax_request(tokenv, startv, endv, locationv, formatsv) {
     var search = {
         token: tokenv,
         categories: 111,
-        start_date: {
-            range_start: startv,
-            range_end: endv
-        },
-        venue: {
-            city: locationv
-        }
+        formats: get_formats();
     }
 
-    alert($.param(search));
-
     return $.ajax({
-        //format_id: {
-            //1: Conference,
-            //2: Seminar or Talk,
-            //3: Expo,
-            //4: Convention,
-            //5: Festival,
-            //6: Concert,
-            //7: Screening,
-            //8: Dinner,
-            //9: Workshop,
-            //10: Meeting/Networking,
-            //11: Party or Social Gathering
-            //12: Rally,
-            //13: Tournament,
-            //14: Game or Competition,
-            //15: Race or Endurance Event
-        url: "https://www.eventbriteapi.com/v3/events/search/?token=" + tokenv + "&categories=111&start_date.range_start=" + startv + "&start_date.range_end=" + endv + "&venue.city=" + locationv,
+        url: "https://www.eventbriteapi.com/v3/events/search/?start_date.range_start=" + startv + "&start_date.range_end=" + endv + "&venue.city" + locationv,
         type: "GET",
         dataType: "json",
         cache: "false",
@@ -39,7 +26,7 @@ function ajax_request(tokenv, startv, endv, locationv) {
         // beforeSend: function(xhr) {
         //     xhr.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         // },
-        // data: $.param(search)
+        data: $.param(search)
     });
 }
 

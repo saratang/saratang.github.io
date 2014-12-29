@@ -16,39 +16,43 @@
     <div id="refine_search">
       <h1>Refine Your Search</h1>
       <form name="refine" id="refine" action="find_events.html">
-        <h2>Type of event</h2>
-            <input type="checkbox" name="type" value="Gala">Dinner or Gala<br>
-            <input type="checkbox" name="type" value="Concert">Concert<br>
-            <input type="checkbox" name="type" value="Screening">Screening
+        <div id="type-container">
+          <h2>Type of event</h2>
+            <input type="checkbox" name="type" value="8">Dinner or Gala<br>
+            <input type="checkbox" name="type" value="6">Concert<br>
+            <input type="checkbox" name="type" value="7">Screening
             <br>
-            <input type="checkbox" name="type" value="Party">Party or Social Gathering
+            <input type="checkbox" name="type" value="11">Party or Social Gathering
             <br>
-            <input type="checkbox" name="type" value="Rally">Rally
+            <input type="checkbox" name="type" value="12">Rally
             <br>
-            <input type="checkbox" name="type" value="Tournament">Tournament
+            <input type="checkbox" name="type" value="13">Tournament
             <br>
-            <input type="checkbox" name="type" value="Competition">
-            Game or Competition
+            <input type="checkbox" name="type" value="14">Game or Competition
             <br>
-            <input type="checkbox" name="type" value="Race">Race or Endurance
+            <input type="checkbox" name="type" value="15">Race or Endurance
             <br>
-            <input type="checkbox" name="type" value="Signing">Appearance or Signing
+            <input type="checkbox" name="type" value="19">Appearance or Signing
             <br>
-            <input type="checkbox" name="type" value="Other">Other
+            <input type="checkbox" name="type" value="1,2,3,4,5,9,10,16,17,18">Other
             <br>
+        </div>
+        <div id="price-container">
         <h2>Price of event</h2>
-            <input type="checkbox" name="price" value="Free">Free
-            <br>
-            <input type="checkbox" name="price" value="1">0 - 19.99
-            <br>
-            <input type="checkbox" name="price" value="2">20.00 - 49.99
-            <br>
-            <input type="checkbox" name="price" value="3">50+
-            <br>
+          <input type="checkbox" name="price" value="Free">Free
+          <br>
+          <input type="checkbox" name="price" value="1">0 - 19.99
+          <br>
+          <input type="checkbox" name="price" value="2">20.00 - 49.99
+          <br>
+          <input type="checkbox" name="price" value="3">50+
+          <br>
+        </div>
         <input type="submit" name="submit" value="Submit" id="submit">
       </form>
     </div>
     <button id="button">Click!</button>
+    <button id="formats">Formats</button>
     <div id="target">
       
     </div>
