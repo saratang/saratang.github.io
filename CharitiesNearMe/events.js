@@ -10,6 +10,7 @@ function get_formats() {
     alert(formats.join());
     //return formats.join();
 }
+
 function ajax_request(tokenv, startv, endv, locationv, formatsv) {
     var search = {
         token: tokenv,
@@ -80,5 +81,8 @@ $(function() {
                     console.log("error:" + data);
                 }
             });
+    });
+    $('#formats').click(function() {
+        get_formats();
     });
 });
