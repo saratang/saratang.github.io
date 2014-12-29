@@ -2,10 +2,8 @@
 function get_formats() {
     formats = [];
     //for each checked box, add its value to formats
-    $('#type-container :checkbox').each(function() {
-        if (this.checked) {
-            formats.push(this.val());
-        }
+    $('.type:checked').each(function() {
+        formats.push(this.val());
     });
     alert(formats.join());
     //return formats.join();
