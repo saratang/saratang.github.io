@@ -15,6 +15,22 @@ function ajax_request(tokenv, startv, endv, locationv) {
     alert($.param(search));
 
     return $.ajax({
+        //format_id: {
+            //1: Conference,
+            //2: Seminar or Talk,
+            //3: Expo,
+            //4: Convention,
+            //5: Festival,
+            //6: Concert,
+            //7: Screening,
+            //8: Dinner,
+            //9: Workshop,
+            //10: Meeting/Networking,
+            //11: Party or Social Gathering
+            //12: Rally,
+            //13: Tournament,
+            //14: Game or Competition,
+            //15: Race or Endurance Event
         url: "https://www.eventbriteapi.com/v3/events/search/?token=" + tokenv + "&categories=111&start_date.range_start=" + startv + "&start_date.range_end=" + endv + "&venue.city=" + locationv,
         type: "GET",
         dataType: "json",
