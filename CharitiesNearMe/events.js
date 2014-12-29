@@ -1,11 +1,19 @@
 //Find all places within a limit
 function ajax_request(tokenv, startv, endv, locationv) {
+    var start_date = {
+        range_start: startv,
+        range_end: endv
+    }
+
+    var venue = {
+        city: locationv
+    }
+
     var search = {
         token: tokenv,
         categories: 111,
-        start_date.range_start: startv,
-        start_date.range_end: endv,
-        venue.city: locationv
+        start_date,
+        venue
     }
 
     return $.ajax({
@@ -13,7 +21,7 @@ function ajax_request(tokenv, startv, endv, locationv) {
         type: "GET",
         dataType: "json",
         cache: "false",
-        contentType: 'application/json'
+        contentType: 'application/json', 
         data: $.params(search)
     });
 }
