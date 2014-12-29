@@ -15,7 +15,7 @@ function ajax_request(tokenv, startv, endv, locationv) {
     alert($.param(search));
 
     return $.ajax({
-        url: "https://www.eventbriteapi.com/v3/events/search/?token=" + tokenv + "&start_date.range_start=" + startv + "&start_date.range_end=" + endv + "&venue.city=" locationv,
+        url: "https://www.eventbriteapi.com/v3/events/search/?token=" + tokenv + "&start_date.range_start=" + startv + "&start_date.range_end=" + endv + "&venue.city=" + locationv,
         type: "GET",
         dataType: "json",
         cache: "false",
