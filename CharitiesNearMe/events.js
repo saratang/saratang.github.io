@@ -59,9 +59,9 @@ function add_marker(event) {
     var latitude = event['venue']['latitude'];
     var coordinates = new google.maps.LatLng(longitude, latitude);
     var marker = new google.maps.Marker({
-        position: coordinates;
-        map: map;
-        title: event['name']['text'];
+        position: coordinates,
+        map: map,
+        title: event['name']['text']
     });
 }
 
