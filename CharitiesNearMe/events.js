@@ -9,7 +9,7 @@ function get_formats() {
     //return formats.join();
 }
 
-function ajax_request(tokenv, startv, endv, locationv, formatsv) {
+function ajax_request(tokenv, startv, endv, locationv) {
     var search = {
         token: tokenv,
         categories: 111,
@@ -66,35 +66,35 @@ function add_marker(event) {
 }
 
 $(function() {
-    $('#button').click(function() {
-        var location = 'toronto';
-        var token = "ZBEVEGMUTNYPFPOKE4B7";
-        var today = new Date();
-        today = format(today);
-        var end = format(thirty_days_later());
+    // $('#button').click(function() {
+    //     var location = 'toronto';
+    //     var token = "ZBEVEGMUTNYPFPOKE4B7";
+    //     var today = new Date();
+    //     today = format(today);
+    //     var end = format(thirty_days_later());
 
-        //var params = {'hostname': $hostname, 'type': $type};
-        var res = ajax_request(token, today, end, location);
-        res
-            .done(function(data) {
-                //if data is non-empty, return an array containing data['events']['name']['text'], data['events']['description']['text'], data['events']['url'], data['events']['start']['local'], host name, event address, and number of people attending, latitude and longitude -.-"
-                if (data) {
-                    $.each(data['events'], function() {
-                        //turn info into marker on map
-                        add_marker(this);
+    //     //var params = {'hostname': $hostname, 'type': $type};
+    //     var res = ajax_request(token, today, end, location);
+    //     res
+    //         .done(function(data) {
+    //             //if data is non-empty, return an array containing data['events']['name']['text'], data['events']['description']['text'], data['events']['url'], data['events']['start']['local'], host name, event address, and number of people attending, latitude and longitude -.-"
+    //             if (data) {
+    //                 $.each(data['events'], function() {
+    //                     //turn info into marker on map
+    //                     add_marker(this);
 
-                        console.log('');
-                        console.log('Name: ' + this['name']['text']);
-                        console.log('Host: ' + this['organizer']['name']);
-                        console.log('Venue: ' + this['venue']['address']['address_1']);
-                        console.log('Type: ' + this['format']['name']);
-                    });
-                } else {
-                    //if data is empty, display some message
-                    console.log("error:" + data);
-                }
-            });
-    });
+    //                     console.log('');
+    //                     console.log('Name: ' + this['name']['text']);
+    //                     console.log('Host: ' + this['organizer']['name']);
+    //                     console.log('Venue: ' + this['venue']['address']['address_1']);
+    //                     console.log('Type: ' + this['format']['name']);
+    //                 });
+    //             } else {
+    //                 //if data is empty, display some message
+    //                 console.log("error:" + data);
+    //             }
+    //         });
+    // });
     $('#formats').click(function() {
         get_formats();
     });
