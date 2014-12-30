@@ -6,9 +6,10 @@ function get_formats() {
         formats.push($(this).val());
     });
     return formats.join();
+    //return formats.join();
 }
 
-function ajax_request(tokenv, startv, endv, locationv) {
+function ajax_request(tokenv, startv, endv, locationv, formatsv) {
     var search = {
         token: tokenv,
         categories: 111,
@@ -69,9 +70,11 @@ $(function() {
                 if (data) {
                     $.each(data['events'], function() {
                         //turn info into marker on map
+                        console.log('');
                         console.log('Name: ' + this['name']['text']);
                         console.log('Host: ' + this['organizer']['name']);
                         console.log('Venue: ' + this['venue']['address']['address_1']);
+                        console.log('Type: ' + this['format']['name']);
                     });
                 } else {
                     //if data is empty, display some message
