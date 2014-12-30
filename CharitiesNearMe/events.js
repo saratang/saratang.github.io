@@ -3,13 +3,12 @@ function get_formats() {
     formats = [];
     //for each checked box, add its value to formats
     $('.type:checked').each(function() {
-        formats.push(this.val());
+        formats.push($(this).val());
     });
-    alert(formats.join());
-    //return formats.join();
+    return formats.join();
 }
 
-function ajax_request(tokenv, startv, endv, locationv, formatsv) {
+function ajax_request(tokenv, startv, endv, locationv) {
     var search = {
         token: tokenv,
         categories: 111,
@@ -17,7 +16,7 @@ function ajax_request(tokenv, startv, endv, locationv, formatsv) {
     }
 
     return $.ajax({
-        url: "https://www.eventbriteapi.com/v3/events/search/?start_date.range_start=" + startv + "&start_date.range_end=" + endv + "&venue.city" + locationv,
+        url: "https://www.eventbriteapi.com/v3/events/search/?start_date.range_start=" + startv + "&start_date.range_end=" + endv + "&venue.city=" + locationv,
         type: "GET",
         dataType: "json",
         cache: "false",
