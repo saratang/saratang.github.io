@@ -59,6 +59,12 @@ function initialize() {
     };
     var map = new google.maps.Map(document.getElementById('map-canvas'),
         mapOptions);
+    
+    var marker = new google.maps.Marker({
+      map: map,
+      position: { lat: 43.6605055, lng: -79.3902864 },
+      title: 'Sample'
+    });
 }
 
 function loadScript() {
