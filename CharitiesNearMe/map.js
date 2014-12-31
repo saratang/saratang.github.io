@@ -62,7 +62,7 @@ function initialize() {
     var map = new google.maps.Map(document.getElementById('map-canvas'),
         mapOptions);
 
-    google.maps.event.addListener($('#button'), 'click', function() {
+    google.maps.event.addDomListener($('#button'), 'click', function() {
       var location = 'toronto';
         var token = "ZBEVEGMUTNYPFPOKE4B7";
         var today = new Date();
