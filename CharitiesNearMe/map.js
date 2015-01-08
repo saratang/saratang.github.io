@@ -96,9 +96,9 @@ function initialize() {
     });
 
     function add_marker(event, map) {
-        var longitude = parseFloat(event['venue']['longitude']);
         var latitude = parseFloat(event['venue']['latitude']);
-        var coordinates = new google.maps.LatLng(longitude, latitude);
+        var longitude = parseFloat(event['venue']['longitude']);
+        var coordinates = new google.maps.LatLng(latitude, longitude);
         var marker = new google.maps.Marker({
             position: coordinates,
             map: map,
