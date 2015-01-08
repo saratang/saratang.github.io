@@ -80,7 +80,7 @@ function initialize() {
                 if (data) {
                     $.each(data['events'], function() {
                         //turn info into marker on map
-                        add_marker(this);
+                        add_marker(this, map);
 
                         console.log('');
                         console.log('Name: ' + this['name']['text']);
@@ -95,9 +95,9 @@ function initialize() {
             });
     });
 
-    function add_marker(event) {
-        var longitude = event['venue']['longitude'];
-        var latitude = event['venue']['latitude'];
+    function add_marker(event, map) {
+        var longitude = parseFloat(event['venue']['longitude']);
+        var latitude = parseFloat(event['venue']['latitude']);
         var coordinates = new google.maps.LatLng(longitude, latitude);
         var marker = new google.maps.Marker({
             position: coordinates,
