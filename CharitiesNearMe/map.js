@@ -80,21 +80,20 @@ function initialize() {
                 if (data) {
                     $.each(data['events'], function() {
                         //turn info into marker on map
-                        markers = new Array();
-                        infowindows = new Array();
+                        var markers = new Array();
+                        var infowindows = new Array();
 
                         markers.push(add_marker(this, map));
                         infowindows.push(add_infowindow(this));
-
-                        console.log('');
-                        console.log('Name: ' + this['name']['text']);
-
-                        for (var i = 0; i < markers.length; i++) {
-                            google.maps.event.addListener(markers[i], 'click', function() {
-                                infowindows[i].open(map, markers[i]);
-                            });
-                        }
                     });
+
+                    for (var i = 0; i < markers.length; i++) {
+                        console.log($.type(markers[i]));
+                        console.log($.type(infowindows[i]));
+                        google.maps.event.addListener(markers[i], 'click', function() {
+                            infowindows[i].open(map, markers[i]);
+                        });
+                    }
                 } else {
                     //if data is empty, display some message
                     console.log("error:" + data);
