@@ -88,6 +88,12 @@ function initialize() {
 
                         console.log('');
                         console.log('Name: ' + this['name']['text']);
+
+                        for (var i = 0; i < markers.length; i++) {
+                            google.maps.event.addListener(markers[i], 'click', function() {
+                                infowindows[i].open(map, markers[i]);
+                            });
+                        }
                     });
                 } else {
                     //if data is empty, display some message
@@ -95,13 +101,6 @@ function initialize() {
                 }
             });
     });
-    
-    for (var i = 0; i < markers.length; i++) {
-        google.maps.event.addListener(markers[i], 'click', function() {
-            infowindows[i].open(map, markers[i]);
-        });
-    }
-    
 
     function add_marker(event, map) {
         var latitude = parseFloat(event['venue']['latitude']);
