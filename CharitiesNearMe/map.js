@@ -80,13 +80,14 @@ function initialize() {
                 if (data) {
                     $.each(data['events'], function() {
                         //turn info into marker on map
-                        add_marker(this, map);
+                        markers = new Array();
+                        infowindows = new Array();
+
+                        markers.push(add_marker(this, map));
+                        infowindows.push(add_infowindow(this));
 
                         console.log('');
                         console.log('Name: ' + this['name']['text']);
-                        console.log('Host: ' + this['organizer']['name']);
-                        console.log('Venue: ' + this['venue']['address']['address_1']);
-                        console.log('Type: ' + this['format']['name']);
                     });
                 } else {
                     //if data is empty, display some message
@@ -94,6 +95,13 @@ function initialize() {
                 }
             });
     });
+    
+    for (var i = 0; i < markers.length; i++) {
+        google.maps.event.addListener(markers[i], 'click', function() {
+            infowindows[i].open(map, markers[i]);
+        }
+    }
+    
 
     function add_marker(event, map) {
         var latitude = parseFloat(event['venue']['latitude']);
@@ -104,6 +112,26 @@ function initialize() {
             map: map,
             title: event['name']['text']
         });
+        return marker;
+    }
+
+    function add_infowindow(event) {
+        var contentString = '<div class="info-content">'+
+            '<h1 class="firstHeading">' + event['name']['text'] + '</h1>'+
+            '<h2 class="secondHeading">' + event['organizer']['name'] + '</div>'+
+            '<div class="bodyContent">'+
+            event['description']['html'] +
+            '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+            'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+            '(last visited June 22, 2009).</p>'+
+            '</div>'+
+            '</div>';
+
+        var infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+
+        return infowindow;
     }
 }
 
