@@ -99,7 +99,7 @@ function initialize() {
     for (var i = 0; i < markers.length; i++) {
         google.maps.event.addListener(markers[i], 'click', function() {
             infowindows[i].open(map, markers[i]);
-        }
+        });
     }
     
 
