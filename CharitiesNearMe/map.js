@@ -78,11 +78,11 @@ function initialize() {
             .done(function(data) {
                 //if data is non-empty, return an array containing data['events']['name']['text'], data['events']['description']['text'], data['events']['url'], data['events']['start']['local'], host name, event address, and number of people attending, latitude and longitude -.-"
                 if (data) {
+                    var markers = new Array();
+                    var infowindows = new Array();
+                    
                     $.each(data['events'], function() {
                         //turn info into marker on map
-                        var markers = new Array();
-                        var infowindows = new Array();
-
                         markers.push(add_marker(this, map));
                         infowindows.push(add_infowindow(this));
                     });
@@ -114,16 +114,7 @@ function initialize() {
     }
 
     function add_infowindow(event) {
-        var contentString = '<div class="info-content">'+
-            '<h1 class="firstHeading">' + event['name']['text'] + '</h1>'+
-            '<h2 class="secondHeading">' + event['organizer']['name'] + '</div>'+
-            '<div class="bodyContent">'+
-            event['description']['html'] +
-            '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-            'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-            '(last visited June 22, 2009).</p>'+
-            '</div>'+
-            '</div>';
+        var contentString = event['name']['text'];
 
         var infowindow = new google.maps.InfoWindow({
             content: contentString
