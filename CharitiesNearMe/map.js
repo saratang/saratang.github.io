@@ -119,7 +119,7 @@ function initialize() {
         var contentString = '<div class="info-content">'+
             '<h1 class="firstHeading">' + event['name']['text'] + '</h1>'+
             '<h2 class="secondHeading">' + event['organizer']['name'] + '</div>'+
-            '<div class="bodyContent">'+
+            '<div class="bodyContent">'+ event['description']['text'] + 
             '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
             'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
             '(last visited June 22, 2009).</p>'+
