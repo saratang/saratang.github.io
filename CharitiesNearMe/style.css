@@ -1,9 +1,6 @@
-html, body, #map-canvas {
-    height: 100%;
-    margin: 0px;
-    padding: 0px
-}
-
 #map-canvas {
+	-webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
 	width: 100%;
 }
