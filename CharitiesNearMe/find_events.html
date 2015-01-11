@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>Find Events | Charities Near Me</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script type="text/javascript"src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmYKQKUOyOz-8ZCj1Ge-CeJUWHSiWgjaU"></script>
     <script src="jquery-2.1.1.min.js"></script>
@@ -14,6 +16,7 @@
   </head>
 
   <body>
+    <div class="container">
     <div id="refine_search">
       <h1>Refine Your Search</h1>
       <form name="refine" id="refine" action="find_events.html">
@@ -39,25 +42,21 @@
             <br>
         </div>
         <div id="price-container">
-        <h2>Price of event</h2>
-          <input type="checkbox" name="price" value="Free">Free
-          <br>
-          <input type="checkbox" name="price" value="1">0 - 19.99
-          <br>
-          <input type="checkbox" name="price" value="2">20.00 - 49.99
-          <br>
-          <input type="checkbox" name="price" value="3">50+
-          <br>
+          <h2>Price of event</h2>
+            <input type="checkbox" name="price" value="Free">Free
+            <br>
+            <input type="checkbox" name="price" value="1">0 - 19.99
+            <br>
+            <input type="checkbox" name="price" value="2">20.00 - 49.99
+            <br>
+            <input type="checkbox" name="price" value="3">50+
+            <br>
         </div>
         <input type="submit" name="submit" value="Submit" id="submit">
       </form>
     </div>
-    <button id="button">Click!</button>
-    <button id="formats">Formats</button>
-    <div id="target">
-      
-    </div>
     <span><button id="refine_button">Refine Your Search</button></span>
     <div id="map-canvas"></div>
+    </div>
   </body>
 </html>
