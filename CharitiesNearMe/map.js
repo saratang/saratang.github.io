@@ -51,7 +51,7 @@
 // map.setCenter(options.position);
 // }
 
-//google.maps.event.addDomListener(document.getElementById('submit'), 'click', initialize);
+
 
 
 function initialize() {
@@ -65,7 +65,7 @@ function initialize() {
 
     //google.maps.event.addDomListener($('#formats'), 'click', placeMarker());
 
-    $('#formats').click(function() {
+    $('#button').click(function() {
         var location = 'toronto';
         var token = "ZBEVEGMUTNYPFPOKE4B7";
         var today = new Date();
@@ -134,16 +134,18 @@ function initialize() {
     }
 }
 
-function loadScript() {
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&' +
-      'callback=initialize';
-    document.body.appendChild(script);
-}
+// function loadScript() {
+//     var script = document.createElement('script');
+//     script.type = 'text/javascript';
+//     script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&' +
+//       'callback=initialize';
+//     document.body.appendChild(script);
+// }
 
-$(function() {
-  $('#button').click(function() {
-    loadScript();
-  });
-});
+// $(function() {
+//   $('#button').click(function() {
+//     loadScript();
+//   });
+// });
+
+google.maps.event.addDomListener(window, 'load', initialize);
