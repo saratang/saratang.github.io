@@ -65,7 +65,7 @@ function initialize() {
 
     //google.maps.event.addDomListener($('#formats'), 'click', placeMarker());
 
-    $('#button').click(function() {
+    $('#submit').click(function() {
         var location = 'toronto';
         var token = "ZBEVEGMUTNYPFPOKE4B7";
         var today = new Date();
@@ -120,9 +120,8 @@ function initialize() {
             '<h1 class="firstHeading">' + event['name']['text'] + '</h1>'+
             '<h2 class="secondHeading">' + event['organizer']['name'] + '</div>'+
             '<div class="bodyContent">'+ event['description']['text'] + 
-            '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-            'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-            '(last visited June 22, 2009).</p>'+
+            '<p>For more information, please <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+            'click here</a></p>'+
             '</div>'+
             '</div>';
 
