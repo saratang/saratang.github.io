@@ -65,7 +65,7 @@ function initialize() {
 
     //google.maps.event.addDomListener($('#formats'), 'click', placeMarker());
 
-    $('#submit').click(function() {
+    $('#button').click(function() {
         var location = 'toronto';
         var token = "ZBEVEGMUTNYPFPOKE4B7";
         var today = new Date();
