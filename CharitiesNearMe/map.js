@@ -120,7 +120,7 @@ function initialize() {
             '<h1 class="firstHeading">' + event['name']['text'] + '</h1>'+
             '<h2 class="secondHeading">' + event['organizer']['name'] + '</div>'+
             '<div class="bodyContent"><p>'+ event['description']['text'] + '</p>' +
-            '<p>For more information, please <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+            '<p>For more information, please <a href="' + event['url'] + '>' + 
             'click here</a>.</p>'+
             '</div>'+
             '</div>';
