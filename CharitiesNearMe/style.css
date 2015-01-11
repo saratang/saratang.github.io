@@ -9,9 +9,5 @@
 }
 
 #button {
-	border: 10px;
-}
-
-#refine_button {
-	vertical-align: center;
+	margin-top: 10px;
 }
