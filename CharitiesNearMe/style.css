@@ -4,3 +4,11 @@
     box-sizing: content-box;
 	width: 100%;
 }
+
+#button {
+	border: 10px;
+}
+
+#refine_button {
+	vertical-align: center;
+}
