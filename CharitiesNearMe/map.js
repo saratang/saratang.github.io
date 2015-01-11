@@ -90,9 +90,11 @@ function initialize() {
                     for (var i = 0; i < markers.length; i++) {
                         console.log($.type(markers[i]));
                         console.log($.type(infowindows[i]));
-                        google.maps.event.addListener(markers[i], 'click', function() {
+                        google.maps.event.addListener(markers[i], 'click', (function(marker, i) {
+                          return function() {
                             infowindows[i].open(map, markers[i]);
-                        });
+                          }
+                        })(markers[i], i));
                     }
                 } else {
                     //if data is empty, display some message
@@ -114,7 +116,15 @@ function initialize() {
     }
 
     function add_infowindow(event) {
-        var contentString = event['name']['text'];
+        var contentString = '<div class="info-content">'+
+            '<h1 class="firstHeading">' + event['name']['text'] + '</h1>'+
+            '<h2 class="secondHeading">' + event['organizer']['name'] + '</div>'+
+            '<div class="bodyContent">'+
+            '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+            'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+            '(last visited June 22, 2009).</p>'+
+            '</div>'+
+            '</div>';
 
         var infowindow = new google.maps.InfoWindow({
             content: contentString
