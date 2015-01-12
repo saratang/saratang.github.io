@@ -20,3 +20,8 @@ body, html, #map-canvas {
 #button {
 	margin-top: 10px;
 }
+
+#refine_search {
+	position: absolute;
+	top: 0px;
+}
