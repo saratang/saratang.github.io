@@ -1,12 +1,14 @@
 $(function() {
-	$('#refine_search').hide();
+	$('.jumbotron').hide();
 	$('#refine_button').click(function() {
-		$('#refine_search').slideToggle('slow');
+		$('.jumbotron').slideToggle('slow');
 	});
 
 	$("#button").click(function() {
-	    $('html, body').animate({
-	        scrollTop: $("#refine_button").offset().top
-	    }, 2000);
+	    $('.jumbotron').slideUp('slow', function() {
+	   		$('html, body').animate({
+				scrollTop: $("#refine_button").offset().top
+			}, 500);
+	    });
 	});
 });
