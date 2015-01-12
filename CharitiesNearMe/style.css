@@ -31,4 +31,6 @@ body, html, #map-canvas {
 
 #refine_button {
 	width: 40%;
+	margin-left: auto;
+	margin-right: auto;
 }
