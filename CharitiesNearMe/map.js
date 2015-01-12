@@ -88,8 +88,6 @@ function initialize() {
                     });
 
                     for (var i = 0; i < markers.length; i++) {
-                        console.log($.type(markers[i]));
-                        console.log($.type(infowindows[i]));
                         google.maps.event.addListener(markers[i], 'click', (function(marker, i) {
                           return function() {
                             infowindows[i].open(map, markers[i]);
