@@ -73,8 +73,9 @@ function initialize() {
                         })(markers[i], i));
                     }
 
-                    map.panTo(markers[0]['position']);
-                    map.setZoom(15);
+                    pan_to_city(map, $('#location-input').val());
+                    map.setZoom(12);
+                    notify_results(location, markers);
                 } else {
                     //if data is empty, display some message
                     console.log("error:" + data);
@@ -94,10 +95,10 @@ function initialize() {
     }
 
     function add_marker(event) {
-        var latitude = parseFloat(event['venue']['latitude']);
-        var longitude = parseFloat(event['venue']['longitude']);
-        var coordinates = new google.maps.LatLng(latitude, longitude);
-        var marker = new google.maps.Marker({
+        var latitude = parseFloat(event['venue']['latitude']),
+        longitude = parseFloat(event['venue']['longitude']),
+        coordinates = new google.maps.LatLng(latitude, longitude),
+        marker = new google.maps.Marker({
             position: coordinates,
             title: event['name']['text']
         });
@@ -136,6 +137,39 @@ function initialize() {
             'click here</a>.</p>'+
             '</div>'+
             '</div>';
+    }
+
+    function notify_results(location, markers) {
+        num = markers.length;
+        location = location.charAt(0).toUpperCase() + location.slice(1);
+
+        if (num != 1) {
+            $('#results-notification').html("We found " + num + " relevant events in " + location + ".");
+        } else {
+            $('#results-notification').html("We found " + num + " relevant event in " + location + ".");
+        }
+
+        $('#results-notification').slideDown(function() {
+            setTimeout(function() {
+                $('#results-notification').slideUp();
+            }, 2500);
+        });
+    }
+
+    function pan_to_city(map, fqcn) {
+        if (fqcn) {
+            $.ajax({
+                url: "http://gd.geobytes.com/GetCityDetails?callback=?&fqcn="+fqcn,
+                async: false,
+                dataType: 'json',
+                success: function(data) {
+                    var latitude = parseFloat(data.geobyteslatitude),
+                    longitude = parseFloat(data.geobyteslongitude),
+                    coords = new google.maps.LatLng(latitude, longitude); 
+                    map.panTo(coords);          
+                }
+            });
+        }
     }
 }
 
