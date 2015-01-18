@@ -21,11 +21,8 @@ function ajax_request(tokenv, startv, endv, locationv) {
         type: "GET",
         dataType: "json",
         cache: "false",
-        // contentType: 'application/json', 
-        // beforeSend: function(xhr) {
-        //     xhr.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        // },
-        data: $.param(search)
+        data: $.param(search),
+        //beforeSend: $('#load').show()
     });
 }
 
@@ -49,53 +46,29 @@ function format(date) {
     return result;
 }
 
-// function eventHTML(event) {
-//     var res = '<div>' + event['name']['text'] + '</div>';
-//     return res;
-// }
-
-// function add_marker(event) {
-//     var longitude = event['venue']['longitude'];
-//     var latitude = event['venue']['latitude'];
-//     var coordinates = new google.maps.LatLng(longitude, latitude);
-//     var marker = new google.maps.Marker({
-//         position: coordinates,
-//         map: map,
-//         title: event['name']['text']
-//     });
-// }
-
-// $(function() {
-//     $('#button').click(function() {
-//         var location = 'toronto';
-//         var token = "ZBEVEGMUTNYPFPOKE4B7";
-//         var today = new Date();
-//         today = format(today);
-//         var end = format(thirty_days_later());
-
-//         //var params = {'hostname': $hostname, 'type': $type};
-//         var res = ajax_request(token, today, end, location);
-//         res
-//             .done(function(data) {
-//                 //if data is non-empty, return an array containing data['events']['name']['text'], data['events']['description']['text'], data['events']['url'], data['events']['start']['local'], host name, event address, and number of people attending, latitude and longitude -.-"
-//                 if (data) {
-//                     $.each(data['events'], function() {
-//                         //turn info into marker on map
-//                         add_marker(this);
-
-//                         console.log('');
-//                         console.log('Name: ' + this['name']['text']);
-//                         console.log('Host: ' + this['organizer']['name']);
-//                         console.log('Venue: ' + this['venue']['address']['address_1']);
-//                         console.log('Type: ' + this['format']['name']);
-//                     });
-//                 } else {
-//                     //if data is empty, display some message
-//                     console.log("error:" + data);
-//                 }
-//             });
-//     });
-//     $('#formats').click(function() {
-//         get_formats();
-//     });
-// });
+$(function () 
+ {
+     $("#location-input").autocomplete({
+        source: function (request, response) {
+         jQuery.getJSON(
+            "http://gd.geobytes.com/AutoCompleteCity?callback=?&q="+request.term,
+            function (data) {
+             response(data);
+            }
+         );
+        },
+        minLength: 3,
+        select: function (event, ui) {
+         var selectedObj = ui.item;
+         $("#location-input").val(selectedObj.value);
+         return false;
+        },
+        open: function () {
+         $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+        },
+        close: function () {
+         $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+        }
+     });
+     $("#location-input").autocomplete("option", "delay", 100);
+});
