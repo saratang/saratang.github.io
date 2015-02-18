@@ -1,7 +1,8 @@
 window.onload = function() {
 
     var messages = [];
-    var socket = io.connect('http://saratang.me:3700/');
+    var current_index;
+    var socket = io.connect('http://192.168.2.20:3700');
     var field = document.getElementById("field");
     var sendButton = document.getElementById("send");
     var content = document.getElementById("chatbox");
@@ -27,6 +28,7 @@ window.onload = function() {
             messages.push(data);
             var html = '';
             var i = messages.length - 1;
+            current_index = i;
             //for(var i=0; i<messages.length; i++) {
             html += '<div class="msgln" id="msgln_' + messages[i].id + '">';
             html += '<div class="userbox"><b>' + (messages[i].username ? messages[i].username : 'Server') + ': </b></div>';
@@ -44,15 +46,16 @@ window.onload = function() {
 
 
     function sendMessage() {
-        var text = autocomplete(field.value);
+        var text = autocomplete(field.value.trim());
         socket.emit('send', { message: text, username: sess.name, id: makeid() });
         field.value = "";
     };
 
-    $("#sendButton").click(function() {
+    $("#send").click(function() {
         sendMessage();
     });
 
+    $("#typing span").css("visibility", "hidden");
     $("#field").focusin(function() {
         if (this.value != '') {
             $("#typing span").css("visibility", "visible");
@@ -70,18 +73,47 @@ window.onload = function() {
         }
 
         //Pushing Enter or Shft + Enter
-        if (e.keycode == 13 && e.shiftKey) {
-            var content = this.value;
+        if (e.keyCode == 13 && e.shiftKey) {
+            var content = $(this).val();
             var caret = getCaret(this);
-            this.value = content.substring(0, caret) + "\n" + content.substring(caret, content.length);
+            $(this).val() = content.substring(0, caret) + "\n" + content.substring(caret, content.length);
             e.stopPropagation();
         }
         else if (e.keyCode == 13 && !e.shiftKey) {
-            sendMessage();
+            if ($(this).val() != '') {
+                sendMessage();
+            }
         }
 
         //Pushing Up should pull up last message
+        if (e.keyCode == 38) {
+            if (messages[current_index].username == sess.name) {
+                this.value = messages[current_index].message;
+            }
 
+            while (current_index > 0) {
+                do {
+                    current_index--;
+                    console.log(current_index);
+                } while (messages[current_index].username != sess.name && current_index > 0);
+                break;
+            }
+        }
+
+        //Pushing Down should go to "next" message
+        if (e.keyCode == 40) {
+            while (current_index < messages.length - 1) {
+                do {
+                    current_index++;
+                    console.log(current_index);
+                } while (messages[current_index].username != sess.name && current_index < messages.length - 1);
+                break;
+            }
+            
+            if (messages[current_index].username == sess.name) {
+                this.value = messages[current_index].message;
+            }
+        }
         //Pushing Tab should autocomplete...
 
     });
@@ -106,18 +138,14 @@ function login(sess) {
         $('#chatroom').show();
         $('#greeting p').html('You are currently logged in as <b>' + sess.name + '</b>');
     } else {
-        if (typeof sess == 'undefined') {
-            alert('sess is undefined');
-        } else if (typeof sess.name == 'undefined') {
-            alert('sess.name is undefined');
-        }
+        // if (typeof sess == 'undefined') {
+        //     alert('sess is undefined');
+        // } else if (typeof sess.name == 'undefined') {
+        //     alert('sess.name is undefined');
+        // }
         $('#chatroom').hide();
         $('#welcome').show();
     }
-}
-
-function post_message(message) {
-    return $.post("post.php"), {text: message}
 }
 
 function autocomplete(message) {
