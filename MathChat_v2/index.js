@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 var sess;
 
 app.get("/", function(req, res){
-	sess=req.session;
+    sess=req.session;
     res.render("page");
 });
 
@@ -26,10 +26,29 @@ app.post('/login',function(req,res){
 	sess=req.session;
 	//In this we are assigning email to sess.name variable.
 	//name comes from HTML page.
-	sess.name=req.body.name;
+    sess.user_sess = {};
+    sess.user_sess.name=req.body.name;
+    sess.user_sess.user_id = makeid();
+    
+    sess.global_sess = [];
+    sess.global_sess.push(req.body.name);
+    // sess.name = req.body.name;
+    // sess.user_id = makeid();
     console.log(req);
 	res.end('done');
 });
+
+app.get('/logout', function(req, res) {
+    req.session.destroy(function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect('/');
+        }
+    });
+});
+
+app.use(express.static(__dirname + '/public'));
 
 var io = require('socket.io').listen(app.listen(port));
 console.log("Listening on port " + port);
@@ -43,33 +62,31 @@ io.sockets.on('connection', function (socket) {
         io.sockets.emit('message', data);
     });
     socket.on('new_user', function () {
-        io.sockets.emit('send_sess', sess);
+        io.sockets.emit('send_user_sess', sess);
+        io.sockets.emit('send_global_sess', sess);
     });
     socket.on('enter', function() {
-        io.sockets.emit('server_message', { message: sess.name + ' entered the chatroom.'});
+        io.sockets.emit('server_message', { message: sess.user_sess.name + ' entered the chatroom.'});
     });
-    // socket.on('exit', function (data) {
-    //     io.sockets.emit('server_message', { message: data.name + ' left the chatroom.' });
-    // });
-    // socket.on('typing', function() {
-    //     io.sockets.emit('typing_msg');
-    // });
-});
-
-app.get('/logout', function(req, res) {
-    io.sockets.on('connection', function (socket) {
-        socket.on('exit', function () {
-            io.sockets.emit('server_message', { message: sess.name + ' left the chatroom.'});
-        });
+    socket.on('exit', function (data) {
+        io.sockets.emit('server_message', { message: sess.user_sess.name + ' left the chatroom.' });
     });
-
-    req.session.destroy(function(err) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.redirect('/');
-        }
+    socket.on('typing', function (data) {
+        socket.broadcast.emit('typing_message', data);
+    });
+    socket.on('not_typing', function() {
+        socket.broadcast.emit('not_typing_message');
     });
 });
 
-app.use(express.static(__dirname + '/public'));
+//////////HELPER FUNCTIONS//////////////
+function makeid()
+{
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 8; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
