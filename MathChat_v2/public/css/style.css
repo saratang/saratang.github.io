@@ -1,0 +1,24 @@
+.container {
+	margin-bottom: 20px;
+}
+
+#homelink {
+	color: #333;
+	text-decoration: none;
+}
+
+#chatroom {
+	width: 500px;
+}
+
+#chatbox {
+	width: 500px;
+	height: 300px;
+	margin: 0 0 20px 0;
+	border-top: solid 1px #999;
+	overflow-y: scroll;
+}
+
+#typing {
+	border-bottom: solid 1px #999;
+}

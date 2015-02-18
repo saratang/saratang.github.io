@@ -116,13 +116,31 @@ class Matrix:
 
         return Matrix(minor_entries)
     
-    def det(self, matrix):
-        """(Matrix, Matrix) -> num
-        Return determinant of matrix
+    def det(self):
+        """(Matrix) -> num
+        Return determinant of Matrix
         """
-        if matrix.dimension == 1:
-            return matrix.entries[0][0]
-        elif matrix.dimension == 2:
-            return matrix.entries[0][0] * matrix.entries[1][1] - matrix.entries[0][1] * matrix.entries[1][0]
+        if self.dimension == 1:
+            return self.entries[0][0]
+        elif self.dimension == 2:
+            return self.entries[0][0] * self.entries[1][1] - self.entries[0][1] * self.entries[1][0]
         else:
-            return sum([(-1) ** (j + 2) * matrix.entries[0][j] * matrix.det(matrix.minor(j)) for j in range(matrix.dimension)])
+            return sum([(-1) ** (j + 2) * self.entries[0][j] * self.minor(j).det() for j in range(self.dimension)])
+        
+    def is_invertible(self):
+        """(Matrix) -> bool
+        Return True iff Matrix is invertible
+        """
+        return self.det() == 0
+    
+    def rank(self):
+        """(Matrix) -> int
+        Return rank of Matrix
+        """
+        pass
+    
+    def rref(self):
+        """(Matrix) -> Matrix
+        Return RREF (row-reduced echelon form) of Matrix
+        """
+        pass
