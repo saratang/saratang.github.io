@@ -31,20 +31,45 @@ app.post('/login',function(req,res){
 	res.end('done');
 });
 
-app.use(express.static(__dirname + '/public'));
-
 var io = require('socket.io').listen(app.listen(port));
 console.log("Listening on port " + port);
 
 io.sockets.on('connection', function (socket) {
-    socket.emit('message', { message: 'welcome to the chat' });
-    socket.on('disconnect', function() {
-    	socket.emit('message', { message: 'user left' });
-    });
+    // socket.emit('server_message', { message: sess.name + ' entered the chatroom.' });
+    // socket.on('disconnect', function() {
+    // 	socket.emit('server_message', { message: sess.name + ' left the chatroom.' });
+    // });
     socket.on('send', function (data) {
         io.sockets.emit('message', data);
     });
     socket.on('new_user', function () {
         io.sockets.emit('send_sess', sess);
     });
+    socket.on('enter', function() {
+        io.sockets.emit('server_message', { message: sess.name + ' entered the chatroom.'});
+    });
+    // socket.on('exit', function (data) {
+    //     io.sockets.emit('server_message', { message: data.name + ' left the chatroom.' });
+    // });
+    // socket.on('typing', function() {
+    //     io.sockets.emit('typing_msg');
+    // });
 });
+
+app.get('/logout', function(req, res) {
+    io.sockets.on('connection', function (socket) {
+        socket.on('exit', function () {
+            io.sockets.emit('server_message', { message: sess.name + ' left the chatroom.'});
+        });
+    });
+
+    req.session.destroy(function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect('/');
+        }
+    });
+});
+
+app.use(express.static(__dirname + '/public'));
