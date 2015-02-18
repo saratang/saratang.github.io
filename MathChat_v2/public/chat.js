@@ -2,12 +2,59 @@ window.onload = function() {
 
     var messages = [];
     var current_index;
-    var socket = io.connect('http://192.168.2.20:3700');
+    var socket = io.connect('http://192.168.0.101:3700');
     var field = document.getElementById("field");
     var sendButton = document.getElementById("send");
     var content = document.getElementById("chatbox");
+    var blip = document.createElement("audio");
+    blip.setAttribute('src', '/blip.wav');
 
     var sess;
+
+    socket.on('server_message', function (data) {
+        if(data.message) {
+            messages.push(data);
+            var html = '';
+            var i = messages.length - 1;
+            var id = makeid();
+
+            html += '<div class="msgln" id="msgln_' + id + '">';
+            html += '<div class="servermsg" id="msg_' + id + '"><i>' + messages[i].message + '</i></div></div>'; 
+            
+            $("#chatbox").append(html);
+            blip.play();
+        } else {
+            console.log("There is a problem:", data);
+        }
+
+        //MathJax.Hub.Queue(["Typset", MathJax.Hub, messages[i].message]);
+        $("#chatbox").scrollTop($("#chatbox")[0].scrollHeight);
+    });
+
+    //If user logs out
+    $("#logout").click(function() {
+        socket.emit('exit');
+    });
+
+    function login(sess) {
+        if (typeof sess != 'undefined' && typeof sess.name != 'undefined') {
+            // alert('sess and sess.name are defined');
+            $('#welcome').hide();
+            $('#chatroom').show();
+            $('#greeting p').html('You are currently logged in as <b>' + sess.name + '</b>. ');
+            $('#greeting p').append('<a id="logout" href="/logout">(Log out)</a>');
+            socket.emit('enter');
+        } else {
+            // if (typeof sess == 'undefined') {
+            //     alert('sess is undefined');
+            // } else if (typeof sess.name == 'undefined') {
+            //     alert('sess.name is undefined');
+            // }
+            $('#chatroom').hide();
+            $('#welcome').show();
+        }
+    }
+
     function get_sess (data) {
         sess = data;
         login(sess);
@@ -15,7 +62,6 @@ window.onload = function() {
     }
 
     socket.on('send_sess', get_sess);
-
     socket.emit('new_user');
 
     //Checks if user is valid
@@ -29,21 +75,26 @@ window.onload = function() {
             var html = '';
             var i = messages.length - 1;
             current_index = i;
+
+            if (i != 0 && messages[i-1].username == messages[i].username) {
+                html += '<div class="msgln" id="msgln_' + messages[i].id + '">';
+                html += '<div class="usermsg" id="msg_' + messages[i].id + '">' + messages[i].message + '</div></div>';
+            } else {
             //for(var i=0; i<messages.length; i++) {
-            html += '<div class="msgln" id="msgln_' + messages[i].id + '">';
-            html += '<div class="userbox"><b>' + (messages[i].username ? messages[i].username : 'Server') + ': </b></div>';
-            html += '<div class="msg" id="msg_' + messages[i].id + '">' + messages[i].message + '</div></div>';
+                html += '<div class="msgln" id="msgln_' + messages[i].id + '">';
+                html += '<div class="userbox"><b>' + (messages[i].username ? messages[i].username : 'Server') + ': </b></div>';
+                html += '<div class="usermsg" id="msg_' + messages[i].id + '">' + messages[i].message + '</div></div>';
+            }
             //}
             $("#chatbox").append(html);
-
+            blip.play();
+            
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub, messages[i].message]);
+            $("#chatbox").scrollTop($("#chatbox")[0].scrollHeight);
         } else {
             console.log("There is a problem:", data);
         }
-
-        MathJax.Hub.Queue(["Typeset", MathJax.Hub, messages[i].message]);
-        $("#chatbox").scrollTop($("#chatbox")[0].scrollHeight);
     });
-
 
     function sendMessage() {
         var text = autocomplete(field.value.trim());
@@ -52,7 +103,9 @@ window.onload = function() {
     };
 
     $("#send").click(function() {
-        sendMessage();
+        if (field.value != '') {
+            sendMessage();
+        }
     });
 
     $("#typing span").css("visibility", "hidden");
@@ -80,7 +133,7 @@ window.onload = function() {
             e.stopPropagation();
         }
         else if (e.keyCode == 13 && !e.shiftKey) {
-            if ($(this).val() != '') {
+            if (field.value != '') {
                 sendMessage();
             }
         }
@@ -91,31 +144,35 @@ window.onload = function() {
                 this.value = messages[current_index].message;
             }
 
-            while (current_index > 0) {
+            if (current_index > 0) {
                 do {
                     current_index--;
                     console.log(current_index);
                 } while (messages[current_index].username != sess.name && current_index > 0);
-                break;
             }
         }
 
         //Pushing Down should go to "next" message
         if (e.keyCode == 40) {
-            while (current_index < messages.length - 1) {
+            if (current_index < messages.length - 1) {
                 do {
                     current_index++;
                     console.log(current_index);
                 } while (messages[current_index].username != sess.name && current_index < messages.length - 1);
-                break;
             }
             
             if (messages[current_index].username == sess.name) {
                 this.value = messages[current_index].message;
             }
         }
+
         //Pushing Tab should autocomplete...
 
+    })
+    .keydown(function(e) {
+        if (e.keyCode == 38) {
+            return false;
+        }
     });
 }
 
@@ -128,23 +185,6 @@ function validate_name(username) {
                 window.location.href="/";
             }
         });
-    }
-}
-
-function login(sess) {
-    if (typeof sess != 'undefined' && typeof sess.name != 'undefined') {
-        // alert('sess and sess.name are defined');
-        $('#welcome').hide();
-        $('#chatroom').show();
-        $('#greeting p').html('You are currently logged in as <b>' + sess.name + '</b>');
-    } else {
-        // if (typeof sess == 'undefined') {
-        //     alert('sess is undefined');
-        // } else if (typeof sess.name == 'undefined') {
-        //     alert('sess.name is undefined');
-        // }
-        $('#chatroom').hide();
-        $('#welcome').show();
     }
 }
 
